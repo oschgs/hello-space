@@ -1,0 +1,728 @@
+_________________________________________________
+
+package atividadepontuada;
+public class AtividadePontuada {
+public static void main(String[] args) {
+        Casa c1 = new Casa("Azul",2,11,true);
+        
+        c1.status();
+        c1.pintarcasa("Vermelho");
+        c1.status();
+        c1.fecharcasa();
+        c1.status();
+        c1.abrircasa();
+        c1.status();
+    }
+}
+_________________________________________________
+
+package atividadepontuada;
+public class Casa {
+    public String cor;
+    public int numero;
+    public int qtdportas;
+    public boolean aberta;
+
+    public Casa(String cor, int numero, int qtdportas, boolean aberta) {
+        this.cor = cor;
+        this.numero = numero;
+        this.qtdportas = qtdportas;
+        this.aberta = aberta;
+    }
+
+    public String getCor() {
+        return cor;
+    }
+
+    public void setCor(String cor) {
+        this.cor = cor;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public int getQtdportas() {
+        return qtdportas;
+    }
+
+    public void setQtdportas(int qtdportas) {
+        this.qtdportas = qtdportas;
+    }
+
+    public boolean isAberta() {
+        return aberta;
+    }
+
+    public void setAberta(boolean aberta) {
+        this.aberta = aberta;
+    }
+    
+    public void pintarcasa(String cor){
+        this.cor= cor;
+    }
+    
+    public void abrircasa(){
+        this.setAberta(true);
+        System.out.println("Abrindo a casa...");
+    }
+    
+    public void fecharcasa(){
+        this.setAberta(false);
+        System.out.println("Fechando a casa...");
+    }
+    
+    public void addporta(int addporta){
+        this.setQtdportas(qtdportas+=addporta);
+    }
+    
+    public void entrar(){
+        if(this.isAberta()== true){
+            System.out.println("Bem-Vindo!");
+        }
+        else{
+            System.out.println("Fechado.");
+        }
+    }
+    
+    public void status(){
+        System.out.println("Cor da casa: "+this.getCor());
+        System.out.println("Número da casa: "+this.getNumero());
+        System.out.println("Quantidade de portas: "+this.getQtdportas());
+        
+            if(this.isAberta()== true){
+             System.out.println("Casa Aberta!");
+            }
+             else{
+                 System.out.println("Casa Fechada.");
+            }
+    }
+    
+}
+_________________________________________________
+
+package impostorenda;
+public class Contribuentes {
+    private String nome;
+    private int idade;
+    private double rendabruta;
+    public Contribuentes(String nome, int idade, double rendabruta) {
+        this.nome = nome;
+        this.idade = idade;
+        this.rendabruta = rendabruta;
+    }
+    public String getNome() {
+        return nome;
+    }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    public int getIdade() {
+        return idade;
+    }
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+    public double getRendabruta() {
+        return rendabruta;
+    }
+    public void setRendabruta(double rendabruta) {
+        this.rendabruta = rendabruta;
+    }
+}
+.................................................
+
+package impostorenda;
+public class ImpostoRenda {
+    public static void main(String[] args) { 
+        PessoaFisica pf1 = new PessoaFisica("Oséias","123.456.789-00", 18, 1800);
+        PessoaFisica pf2 = new PessoaFisica("Uziel","321.654.987-00", 39, 3600);
+        PessoaJuridica pj1 = new PessoaJuridica("Carolina","147.258.369/9876-54",33, 98000);
+        
+        pf1.status();
+        pf2.status();
+        pj1.status();
+    }
+}
+.................................................
+
+package impostorenda;
+public interface Interface {
+    public void Interface();
+}
+.................................................
+
+package impostorenda;
+public class PessoaFisica extends Contribuentes implements Interface{
+    private String cpf;
+    public PessoaFisica(String cpf, String nome, int idade, double rendabruta){
+        super(nome, idade, rendabruta);
+        this.cpf = cpf;
+    }
+    public String getCpf(){
+        return cpf;
+    }
+    public void setCpf(String cpf){
+        this.cpf = cpf;
+    }
+    public void status(){
+        System.out.println("Nome: "+this.getNome());
+        System.out.println("Idade: "+this.getIdade());
+        System.out.println("Cpf: "+this.getCpf());
+        System.out.println("Renda: "+this.getRendabruta());
+        this.Interface();
+    }
+    @Override
+    public void Interface(){
+        if(this.getRendabruta()<=2000){
+            System.out.println("Valor a ser cobrado de "+this.getNome()+": equivale a "+this.getRendabruta()*0.10);
+        }else{
+            System.out.println("Valor a ser cobrado de "+this.getNome()+": equivale a "+this.getRendabruta()*0.20);
+        }
+    }
+}
+.................................................
+
+package impostorenda;
+public class PessoaJuridica extends Contribuentes implements Interface{
+    public String getCnpj() {
+        return cnpj;
+    }
+    private String cnpj;
+    public PessoaJuridica(String nome, String cnpj, int idade, double rendabruta) {
+        super(nome, idade, rendabruta);
+        this.cnpj = cnpj;
+    }
+    public void setCnpj(String cnpj){
+        this.cnpj = cnpj;
+    }
+    public void status(){
+        System.out.println("Nome: "+this.getNome());
+        System.out.println("Idade: "+this.getIdade());
+        System.out.println("Cnpj: "+this.getCnpj());
+        System.out.println("Renda: "+this.getRendabruta());
+        this.Interface();
+    }
+    @Override
+    public void Interface(){
+        System.out.println("Valor a ser cobrado de "+this.getNome()+": equivale a "+this.getRendabruta()*10);
+    }
+}
+_________________________________________________
+
+package projetotarde;
+
+/**
+ *
+ * @author Administrador
+ */
+/*public class Aluno {
+
+    int matricula;
+    String nome;
+    double nota1;
+    double nota2;
+    double media;
+
+    void calcularmedia(double x, double y)
+    {
+        media = (x+y)/2;
+    }
+    double maiornota(double x, double y)
+    {
+        if(x>y)
+        {
+            maior= x;
+        }
+        else
+        {
+            maior= y;
+        }
+        return maior;
+    }
+    Aluno maiormedia(Aluno x, Aluno y)
+    {
+        if(x.media>y.media)
+        {
+            return x;
+        }
+        else
+        {
+            return y;
+        }
+    }
+}
+String maiormedia2(Aluno x, Aluno y)
+{
+    if(x>y)
+    {
+        return x.nome;
+    }
+    else
+    {
+        return y.nome;
+    }
+
+}
+    
+}*/
+.................................................
+
+package projetotarde;
+
+/**
+ *
+ * @author Administrador
+ */
+
+//Atividade 19 (Objeto)
+
+public class Conta {
+    /*int numero;
+    String dono;
+    double saldo;
+    
+    void sacar(double valor)
+    {
+        saldo -= valor;
+    }
+    void depositar(double valor)
+    {
+        saldo += valor;
+    }*/
+    
+    
+//Atividade 22 (Construtor)
+}
+.................................................
+
+package projetotarde;
+
+/**
+ *
+ * @author Administrador
+ */
+public class Funcionario {
+    
+    //Atividade 20
+    String nome;
+    double salario;
+
+    double salariomedio(double s1, double s2){
+
+        double mediasalario;
+        mediasalario=(s1+s2)/2;
+        return mediasalario;
+    }
+}
+.................................................
+
+package projetotarde;
+
+/**
+ *
+ * @author Administrador
+ */
+public class Locação {
+    
+    /*public String nome;
+    public String data;
+    public int dias;
+    public String Modelo;
+    public double diaria;*/
+}
+.................................................
+
+package projetotarde;
+
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Administrador
+ */
+public class ProjetoTarde {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+   .................................................
+       //Atividade 01
+       /* int x = 10;
+        String y = "Sidney";
+        double w = 5.589;
+        
+        System.out.println(x);
+        System.out.println(y);
+        System.out.println(w);
+        
+        //System.out.print("Primeiro valor:" +x+ "\nsegundo valor:" +y);
+        System.out.println("O valor decimal é: " +w); */
+       
+   .................................................
+    //Atividade 02
+    /*int num1, num2;
+
+    num1= Integer.parseInt(JOptionPane.showInputDialog("Digite o primeiro numero"));
+    num2= Integer.parseInt(JOptionPane.showInputDialog("Digite o segundo numero"));
+
+    if(num1>num2)
+    {
+        System.out.println("Maior: "+num1+" / Menor: "+num2);
+    }
+    else if(num2>num1)
+    {
+        System.out.println("Maior: "+num2+" /Menor: "+num1);
+    }
+    else
+    {
+        System.out.println("Numeros iguais");
+    }*/
+    
+   .................................................
+    //Atividade 03
+    /*double num1, num2, media;
+    
+    num1= Double.parseDouble(JOptionPane.showInputDialog("Digite um valor"));
+    if (num1%2==0)
+    {
+        
+    }*/
+    
+   .................................................
+    //Atividade 04
+    /*int anonasc, anoatual, idade;
+    anonasc= Integer.parseInt(JOptionPane.showInputDialog("Digite o ano de nascimento"));
+    anoatual= Integer.parseInt(JOptionPane.showInputDialog("Digite o ano atual"));
+    
+    idade= anoatual - anonasc;
+    
+    System.out.println("Sua idade:" +idade);*/
+    
+   .................................................
+    //Atividade 05
+    /*int num, ant, suc;
+    
+    num= Integer.parseInt(JOptionPane.showInputDialog("Digite um valor"));
+    ant= num-1;
+    suc= num+1;
+    
+    System.out.println("Valor digitado: "+num+" Antecessor: "+ant+" Sucessor: " +suc);*/
+    
+   .................................................
+    //Atividade 06
+    /*String nome;
+    double n1,n2,n3,media;
+    
+    nome= JOptionPane.showInputDialog("Digite seu nome.");
+    n1= Double.parseDouble(JOptionPane.showInputDialog("Digite a nota1"));
+    n2= Double.parseDouble(JOptionPane.showInputDialog("Digite a nota2"));
+    n3= Double.parseDouble(JOptionPane.showInputDialog("Digite a nota3"));
+    
+    media= (n1+n2+n3)/3;
+    if(media>=7)
+    {
+        System.out.println("Aluno: "+nome+" Aprovado.");
+    }
+    else
+    {
+        System.out.println("Aluno: "+nome+" Reprovado.");
+    }*/
+    
+   .................................................
+    //Atividade 07
+    /*int i, cont=0, num;
+    for(i=0;i<4;i++)
+    {
+        num= Integer.parseInt(JOptionPane.showInputDialog("Digite um valor"));
+        if(num>=10 && num<=150)
+            cont++;
+    }
+    System.out.println("Existem: "+cont+" números dentro do intervalo.");*/
+    
+   .................................................
+    //Atividade 08
+    
+    /*double n1,n2,n3, media;
+    String nome;
+    
+    nome= JOptionPane.showInputDialog("Digite seu nome");
+    n1= Double.parseDouble(JOptionPane.showInputDialog("Digite sua primeira nota"));
+    n2= Double.parseDouble(JOptionPane.showInputDialog("Digite sua segunda nota"));
+    n3= Double.parseDouble(JOptionPane.showInputDialog("Digite sua terceira nota"));
+    
+    media= (n1+n2+n3)/3;
+    
+    if(media>=)
+    {
+        System.out.println("O aluno "+nome+" está aprovado.");
+    }
+    else
+    {
+        System.out.println("O aluno "+nome+" está reprovado.");
+    }*/
+    
+   .................................................
+    //Atividade 09
+    
+    /*double media;
+    String nome;
+    int i;
+    
+    nome= JOptionPane.showInputDialog("Digite seu nome");
+    media= Double.parseDouble(JOptionPane.showInputDialog("Digite seu nome"));
+    
+    if(media>=8)
+    {
+        System.out.println("O aluno "+nome+" obteve média acima de 8.");
+    }*/
+    
+   .................................................
+    //Atividade 10
+    
+    /*int i,v1,cont=0;
+    
+    for(i=0;i<3;i++)
+    {
+        v1= Integer.parseInt(JOptionPane.showInputDialog("Digite um valor"));
+        if(v1>=10 && v1<=150)
+        {
+            cont++;
+        }
+    }
+    System.out.println("Existem: "+cont+" valores no intervalo.");*/
+    
+   .................................................
+    //Atividade 11
+    
+    /*double salfixo,saltotal,totvendas;
+    String nome;
+    
+    nome= JOptionPane.showInputDialog("Digite seu nome");
+    salfixo= Double.parseDouble(JOptionPane.showInputDialog("Digite seu salário fixo"));
+    totvendas= Double.parseDouble(JOptionPane.showInputDialog("Digite o total de vendas"));
+    
+    saltotal= salfixo +(totvendas*15)/100;
+    
+    System.out.println("Salário Fixo: "+salfixo);
+    System.out.println("Salatio Total: "+saltotal);*/
+    
+   .................................................
+    //Atividade 12
+    
+    /*int num, i=0, par=0, impar=0;
+    
+    while(i<4)
+    {
+    num= Integer.parseInt(JOptionPane.showInputDialog("Digite um valor"));
+    
+    if(num%2==0)
+    {
+        par++;
+    }
+    else
+    {
+        impar++;
+    }
+    i++;
+    }
+    
+    System.out.println("Valores pares: "+par);
+    System.out.println("Valores impares: "+impar);*/
+    
+   .................................................
+    //Atividade 13
+    
+    /*String nome, nome1;
+    
+    nome= JOptionPane.showInputDialog("Digite um nome");
+    
+    nome1 = nome;
+    
+    JOptionPane.showMessageDialog(null, nome1);
+    System.out.println("nome1");*/
+    
+   .................................................
+    //Atividade 14
+    
+    /*int num, par=0, impar=0, i;
+    
+    for(i=0;i<4;i++)
+    {
+        num = Integer.parseInt(JOptionPane.showInputDialog("Digite um valor"));
+        
+        if(num%2==0)
+        {
+            par++;
+        }
+        else
+        {
+            impar++;
+        }
+    }
+    System.out.println("Pares: "+par);
+    System.out.println("Impares: "+impar);*/
+    
+   .................................................
+    //Atividade 15
+    // Não finalizado
+    
+    /*int num, par=0, impar=0, i, cont=0, media;
+    
+    for(i=0;i<4;i++)
+    {
+        num = Integer.parseInt(JOptionPane.showInputDialog("Digite um valor"));
+        
+        if(num%2==0)
+        {
+            par+=num;
+        }
+        else
+        {
+            impar+=num;
+        }
+    }
+    System.out.println("Pares: "+par);
+    System.out.println("Impares: "+impar);*/
+    
+   .................................................
+    //Atividade 16
+    //Não terminado
+    
+    /*int num, pos, i, cont=0;
+    
+    for(i=0;i<4;i++)
+    {
+        num = Integer.parseInt(JOptionPane.showInputDialog("Digite um valor"));
+        
+        if(num>0)
+        {
+            pos+=num;
+        }
+        else
+        {
+            cont+=num;
+        }
+    }
+    
+    System.out.println("Soma dos Positivos: "+pos);
+    System.out.println("Quantidade dos negativos: "+cont);*/
+    
+   .................................................
+    //Atividade 17
+    
+    /*int num, pos=0, i;
+    
+    for(i=85;i<=907;i++)
+    {
+        if(i%2==0)
+        {
+            System.out.println(i);
+            pos+=i;
+        }
+    }
+    
+    System.out.println("Soma dos valores: "+pos);*/
+    
+   .................................................
+    //Atividade 18
+    
+    /*String nome, nomea=null, nomep=null;
+    double peso, altura, pesado=0, alto=0;
+    int i;
+    
+    i=0;
+    
+    while(i<4)
+    {
+        nome = JOptionPane.showInputDialog("Digite seu nome");
+        peso = Double.parseDouble((JOptionPane.showInputDialog("Digite seu peso")));
+       altura = Double.parseDouble((JOptionPane.showInputDialog("Digite sua altura")));
+       
+       if(peso>pesado)
+       {
+           pesado = peso;
+           nomep =nome;
+       }
+       if(altura>alto)
+       {
+           alto = altura;
+           nomea = nome;
+       }
+       i++;
+    }
+    
+    System.out.println("Mais alto: "+alto+" de altura foi: "+nomea);
+    System.out.println("Mais pesado: "+pesado+"kg foi: "+nomep);*/
+    
+   .................................................
+    //Atividade 19 (Objeto)
+    
+    /*Conta c1= new Conta();
+    
+    c1.numero = 102030;
+    c1.dono = "Oséias Chagas";
+    c1.saldo = 1000.00;
+    
+    System.out.println("Conta n. "+c1.numero);
+    System.out.println("Nome: "+c1.dono);
+    System.out.println("Saldo: "+c1.saldo);
+    
+    c1.depositar(500);
+    
+    System.out.println("Conta n. "+c1.numero);
+    System.out.println("Nome: "+c1.dono);
+    System.out.println("Saldo: "+c1.saldo);
+    
+    c1.sacar(200);
+    
+    System.out.println("Conta n. "+c1.numero);
+    System.out.println("Nome: "+c1.dono);
+    System.out.println("Saldo: "+c1.saldo);*/
+    
+   .................................................
+    //Atividade 20
+    /*Funcionario f1= new Funcionario();
+    Funcionario f2= new Funcionario();
+    f1.nome= "Carlos Silva";
+    f1.salario= 6300;
+
+    f2.nome= "Ana Marques";
+    f2.salario= 6700;
+
+    double media= f1.salariomedio(f1.salario, f2.salario);
+
+    System.out.println("Dados do primeiro funcionario");
+    System.out.println("Nome: "+f1.nome);
+    System.out.println("Salario: "+f1.salario);
+
+    System.out.println("Dados do segundo funcionario");
+    System.out.println("Nome: "+f2.nome);
+    System.out.println("Salario: "+f2.salario);*/
+    
+   .................................................
+    //Atividade 21
+    
+    /*Aluno a1= new Aluno();
+    a1.matricula= 1234;
+    a1.nome= "Feijão no prato";
+    a1.nota1= 7.5;
+    a1.nota2= 8;
+
+    a1.calcularmedia(a1.nota1, a1.nota2);
+    System.out.println(a1.media);
+
+    a2.matricula= 102030;*/
+    
+    .................................................
+    //Atividade 22 
+    
+    Carro car1 = new Carro();
+    
+}
+_________________________________________________
